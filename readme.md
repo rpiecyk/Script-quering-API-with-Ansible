@@ -16,6 +16,9 @@ In this case external file has been used - it has been placed in host_vars direc
 
 Firstly, it is ***mandatory*** to save your **token** in `host_vars/localhost` file. Otherwise, playbook will not run.
 
+If ansible was not installed beforehand debian based script **install_ansible.sh** will install the tool. For other distributions it is required to modify packet manager and packet names accordingly.
+`./install_ansible.sh`
+
 Playbook named **playbook.yml** uses role **query** placed in **roles** catalogue. This role execute tasks placed in **main.yml** file which abosulte path is **roles/query/tasks/main.yml**.
 
 To run the playbook it is need to run command with desired MAC_ADDRESS passed as an environment variable:
