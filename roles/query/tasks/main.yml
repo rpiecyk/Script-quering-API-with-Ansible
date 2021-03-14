@@ -1,0 +1,29 @@
+---
+   - name: Build image
+     community.docker.docker_image:
+        name: "{{ CONTAINER_IMG }}"
+        build:
+           path: .
+        source: build
+        state: present
+
+   - name: Run docker image
+     community.docker.docker_container:
+        name: "{{ CONTAINER_NAME }}"
+        image: "{{ CONTAINER_IMG }}"
+        env:
+                token: "{{ TOKEN }}"
+                mac: "{{ mac }}"
+
+   - name: Wait for log collection
+     wait_for:
+        timeout: 6
+
+   - name: Run docker log 
+     shell:
+        docker logs "{{ CONTAINER_NAME }}"
+     register: containeroutput
+
+   - name: Print Company Name
+     debug: 
+        msg="{{ containeroutput.stdout  }}"
